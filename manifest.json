@@ -1,7 +1,7 @@
 {
   "name": "アニメリスト",
   "short_name": "アニメリスト",
-  "start_url": "./anime-list.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "fullscreen",
   "orientation": "portrait",
