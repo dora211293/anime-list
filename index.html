@@ -262,10 +262,19 @@ document.addEventListener('click', tryFullscreen, {once:true});
 document.addEventListener('touchend', tryFullscreen, {once:true});
 
 // --- PWA service worker ---
-if('serviceWorker' in navigator){
-  window.addEventListener('load', ()=>{
-    navigator.serviceWorker.register('sw.js').catch(()=>{});
-  });
+if ('serviceWorker' in navigator) {
+  if (location.protocol === 'file:') {
+    console.warn('[PWA] file:// では Service Worker が動きません。http(s) で開いてください。');
+  } else {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js', { scope: './' })
+        .then(reg => {
+          console.log('[PWA] SW registered:', reg.scope);
+          reg.update();
+        })
+        .catch(err => console.error('[PWA] SW registration failed:', err));
+    });
+  }
 }
 </script>
 </body>
